@@ -1,17 +1,21 @@
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
-import { Button } from "./components/ui/button"
-
+import ProductCard from "./components/ProductCard"
+import ProductPagination from "./components/ProductPagination"
+import HeroSection from "./components/HeroSection"
 
 function App() {
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
     <Navbar/>
-     <h1 className="text-3xl font-bold underline">Hello World</h1>
-     <Button className="bg-cyan-400 text-cyan-700">Click me</Button>
+    <main className="flex-grow">
+        <HeroSection/>
+        <ProductCard />
+        <ProductPagination/>
+    </main>
      <Footer/>
-    </>
+    </div>
   )
 }
 
