@@ -5,72 +5,89 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-  } from "@/components/ui/table"
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { decrementItemQuantity, incrementItemQuantity, removeItem } from "@/redux/slices/cartslice";
-import { Trash2 } from "lucide-react";
-import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
-import { Plus } from "lucide-react";
-import { Minus } from "lucide-react";
-import { Input } from "./ui/input";
-
-
-function MainCart(){
-const cart = useAppSelector((state) => state.cart.items);
-const dispatch = useAppDispatch();
-console.log(cart);
-console.log()
-if (!cart.length) {
-    return(
-<div className="flex flex-col items-center justify-center">
-    <h1 className="font-semibold text-xl bg-gradient-to-r from-indigo-950 to-purple-900 bg-clip-text text-transparent"> Your Cart is Empty</h1>
-    <Button className="m-4 bg-gradient-to-r from-teal-400 to-teal-500 text-indigo-900 font-medium hover:opacity-90 transition-opacity">
-        <Link to="/">Start Shopping</Link>
-    </Button>
-</div>
-    );
-}
-    return(
+  } from "@/components/ui/table";
+  import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+  import { decrementItemQuantity, incrementItemQuantity, removeItem } from "@/redux/slices/cartslice";
+  import { Trash2, Plus, Minus } from "lucide-react";
+  import { Button } from "./ui/button";
+  import { Link } from "react-router-dom";
+  
+  function MainCart() {
+    const cart = useAppSelector((state) => state.cart.items);
+    const dispatch = useAppDispatch();
+  
+    if (!cart.length) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-[400px]">
+          <h1 className="font-semibold text-xl bg-gradient-to-r from-indigo-950 to-purple-900 bg-clip-text text-transparent">
+            Your Cart is Empty
+          </h1>
+          <Button className="m-4 bg-gradient-to-r from-teal-400 to-teal-500 text-indigo-900 font-medium hover:opacity-90 transition-opacity">
+            <Link to="/">Start Shopping</Link>
+          </Button>
+        </div>
+      );
+    }
+  
+    return (
+      <div className="container mx-auto p-4">
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Product</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Quantity</TableHead>
-            <TableHead>Total</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {/* <TableRow> */}
+          <TableHeader>
+            <TableRow className="bg-gray-50 dark:bg-gray-800">
+              <TableHead className="w-1/3">Product</TableHead>
+              <TableHead className="w-1/6 text-right">Price</TableHead>
+              <TableHead className="w-1/4 text-center">Quantity</TableHead>
+              <TableHead className="w-1/6 text-right">Total</TableHead>
+              <TableHead className="w-1/12 text-center">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {cart.map((item) => (
-                <TableRow key={item.id}>
-                    <TableCell>{item.title}</TableCell>
-                    <TableCell>{item.price}</TableCell>
-                    <TableCell>
-                    <Button className="border-1 rounded-md bg-white m-2 hover:bg-slate-100" onClick={()=>dispatch(incrementItemQuantity(item.id))}>
-                            <Plus className="h-4 w-4 text-black"></Plus>
+              <TableRow key={item.id} className="border-b">
+                <TableCell className="font-medium">{item.title}</TableCell>
+                <TableCell className="text-right">${item.price.toFixed(2)}</TableCell>
+                <TableCell>
+                  <div className="flex items-center justify-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-8 w-8 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
+                      onClick={() => dispatch(decrementItemQuantity(item.id))}
+                    >
+                      <Minus className="h-4 w-4" />
                     </Button>
-                        <Button className="border-1 rounded-md bg-white text-black hover:bg-slate-100 m-2 w-12 text-center" >{item.quantity}</Button>
-                        <Button className="border-1 rounded-md text-black bg-white hover:bg-slate-100" onClick={()=>dispatch(decrementItemQuantity(item.id))}>
-                            <Minus className="h-4 w-4"></Minus>
-                        </Button>
-                        </TableCell>
-                    <TableCell>
-                        {(item.price * item.quantity).toFixed(2)}
-                    </TableCell>
-                    <TableCell>
-                        <button className="bg-red-500 p-2 border-0 rounded-md text-white " onClick={()=>dispatch(removeItem(item.id))}>
-                            <Trash2 className="h-4 w-4"></Trash2>
-                        </button>
-                    </TableCell>
-                </TableRow>
+                    <span className="w-12 text-center font-medium">
+                      {item.quantity}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-8 w-8 bg-white hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
+                      onClick={() => dispatch(incrementItemQuantity(item.id))}
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+                <TableCell className="text-right font-medium">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </TableCell>
+                <TableCell className="text-center">
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    className="h-8 w-8"
+                    onClick={() => dispatch(removeItem(item.id))}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </TableCell>
+              </TableRow>
             ))}
-           
-        </TableBody>
-      </Table>
-      
-    )
-}
-export default MainCart;
+          </TableBody>
+        </Table>
+      </div>
+    );
+  }
+  
+  export default MainCart;

@@ -13,18 +13,18 @@ function HomePage(){
 
     if (status === "loading") {
         return (
-            <div className="flex justify-center items-center h-screen w-screen">
+            <div className="flex justify-center items-center h-screen w-screen dark:bg-gray-900">
                 <PacmanLoader color="#4A148C" />
             </div>
         );
     }
 
     if (status === "failed") {
-        return <p className="text-center text-red-600">Error: {error}</p>;
+        return <p className="text-center text-red-600 dark:text-red-400">Error: {error}</p>;
     }
 
     return (
-        <main className="flex-grow bg-slate-50 p-4">
+        <main className="flex-grow bg-slate-50 dark:bg-gray-900 p-4">
             <HeroSection/>
         </main>
     );
