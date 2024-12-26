@@ -3,6 +3,8 @@ import { PacmanLoader } from "react-spinners";
 import { useEffect } from "react";
 import { fetchProducts } from "../redux/slices/productslice";
 import HeroSection from "@/components/HeroSection";
+import { Toaster } from "sonner";
+
 function HomePage(){
     const dispatch = useAppDispatch();
     const {  status, error } = useAppSelector((state) => state.products);
@@ -25,6 +27,7 @@ function HomePage(){
 
     return (
         <main className="flex-grow bg-slate-50 dark:bg-gray-900 p-4">
+            <Toaster position="top-right" richColors />
             <HeroSection/>
         </main>
     );
