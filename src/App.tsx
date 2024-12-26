@@ -2,7 +2,6 @@ import React from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import HomePage from "./Pages/HomePage";
-import ProductPagination from "./components/ProductPagination";
 import CartPage from "./Pages/CartPage"; // Import the CartPage component
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
@@ -19,7 +18,6 @@ function App() {
               <Route path="/cart" element={<CartPage />} /> {/* Add the CartPage route */}
             </Routes>
           </div>
-          <ProductPagination />
           <Footer />
         </div>
     </Provider>
