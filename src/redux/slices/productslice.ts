@@ -12,13 +12,19 @@ export const fetchProductById = createAsyncThunk("products/fetchProductById", as
     return response.data;
 });
 
-// Initial State
-const initialState = {
-    products: [], // To store all products
-    product: null, // To store a single product (optional, for fetchProductById)
-    status: "idle", // "idle" | "loading" | "succeeded" | "failed"
-    error: null,   // To store error messages
-};
+interface ProductState {
+    products: Product[];
+    product: Product | null;
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
+  }
+  
+  const initialState: ProductState = {
+    products: [],
+    product: null,
+    status: 'idle',
+    error: null,
+  };
 
 // Slice
 const productSlice = createSlice({
@@ -37,7 +43,7 @@ const productSlice = createSlice({
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.status = "failed";
-                state.error = action.error.message;
+                state.error = action.error.message ?? null;
             })
             // Handle fetchProductById
             .addCase(fetchProductById.pending, (state) => {
@@ -49,7 +55,7 @@ const productSlice = createSlice({
             })
             .addCase(fetchProductById.rejected, (state, action) => {
                 state.status = "failed";
-                state.error = action.error.message;
+                state.error = action.error.message ?? null;
             });
     },
 });

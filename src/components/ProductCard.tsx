@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ products }) => {
   const dispatch = useDispatch();
   const cart = useAppSelector((state) => state.cart.items);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product:Product) => {
     dispatch(addItem(product));
     toast.success('Added to Cart', {
         description: `${product.title} has been added to your cart`,

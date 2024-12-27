@@ -14,10 +14,16 @@ import {
   import { toast } from "sonner";
 
   function MainCart() {
+    interface CartItem {
+      id: number;
+      title: string;
+      price: number;
+      quantity: number;
+    }
     const cart = useAppSelector((state) => state.cart.items);
     const dispatch = useAppDispatch();
   
-    const handleRemoveItem = (item) => {
+    const handleRemoveItem = (item:CartItem) => {
         dispatch(removeItem(item.id));
         toast.error('Removed from Cart', {
             description: `${item.title} has been removed from your cart`,

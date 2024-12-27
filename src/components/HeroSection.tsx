@@ -37,7 +37,7 @@ function HeroSection() {
     return filtered;
   };
 
-  const handleSearch = (query) => {
+  const handleSearch = (query:string) => {
     setSearchQuery(query);
   };
 

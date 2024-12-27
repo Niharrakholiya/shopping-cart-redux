@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Input } from "./ui/input";
 
-export default function Searchbar({ onSearch }) {
+interface SearchbarProps {
+  onSearch: (query: string) => void;
+}
+
+ const Searchbarr: React.FC<SearchbarProps>=({ onSearch })=> {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
     onSearch?.(query);
   };
+
 
   return (
     <div className="flex items-center w-full max-w-sm space-x-2 rounded-lg border border-gray-300 bg-gray-50 dark:bg-gray-900 px-3.5 py-2">
@@ -23,8 +28,9 @@ export default function Searchbar({ onSearch }) {
     </div>
   );
 }
+export default Searchbarr;
 
-function SearchIcon(props) {
+function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
