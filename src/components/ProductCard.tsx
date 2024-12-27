@@ -5,14 +5,7 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../redux/slices/cartslice";
 import { useAppSelector } from "../redux/hooks";
 import { toast } from "sonner";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-}
-
+import { Product,CartItem } from "@/types";
 
 interface ProductCardProps {
   products: Product[] | undefined; // Handle undefined products
@@ -23,7 +16,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ products }) => {
   const cart = useAppSelector((state) => state.cart.items);
 
   const handleAddToCart = (product:Product) => {
-    dispatch(addItem(product));
+    const cartItem: Omit<CartItem, 'quantity'> = {
+      id: product.id,
+      title: product.title,
+      price: product.price
+    };
+    dispatch(addItem(cartItem));
     toast.success('Added to Cart', {
         description: `${product.title} has been added to your cart`,
         duration: 2000,

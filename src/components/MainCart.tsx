@@ -12,14 +12,9 @@ import {
   import { Button } from "./ui/button";
   import { Link } from "react-router-dom";
   import { toast } from "sonner";
-
+  import { CartItem } from '../types/index';
   function MainCart() {
-    interface CartItem {
-      id: number;
-      title: string;
-      price: number;
-      quantity: number;
-    }
+   
     const cart = useAppSelector((state) => state.cart.items);
     const dispatch = useAppDispatch();
   
